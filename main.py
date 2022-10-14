@@ -30,7 +30,7 @@ def action():
               f"\n Force de l'adversaire : {force_adversaire}"
               f"\n Ton niveau de vie: {niveau_vie}"
               f"\n combat {numero_adversaire}: {nombre_victoires} victoires et {nombre_defaites} defaites \n... ")
-        time.sleep(5)
+        time.sleep(2)
         score_de = random.randint(1,6)
         print(f"Lancer du dé: {score_de}")
         if score_de > force_adversaire:
@@ -41,7 +41,7 @@ def action():
             print(f"Dernier combat = {combat_statut}"
                   f"\nNiveau de vie = {niveau_vie}"
                   f"\nNombre de victoires consecutives = {nombre_victoires_consecutives}")
-            action()
+            jeu()
 
 
         else:
@@ -52,7 +52,7 @@ def action():
             print(f"Dernier combat = {combat_statut}")
             if niveau_vie > 0:
                 print(f"Niveau de vie = {niveau_vie}")
-                action()
+                jeu()
             else:
                 print(f"La partie est terminée, vous avez vaincu {nombre_victoires} monstre(s).")
 
@@ -61,7 +61,7 @@ def action():
         niveau_vie = niveau_vie - 1
         print("Vous contournez l'adversaire au cout de 1 pt de vie"
               f"\nNiveau de vie = {niveau_vie}")
-        action()
+        jeu()
 
     elif quoi_faire == 3:  # afficher les regles
         print("\nPour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire."
