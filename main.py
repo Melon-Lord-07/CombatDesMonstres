@@ -41,7 +41,12 @@ def action():
             print(f"Dernier combat = {combat_statut}"
                   f"\nNiveau de vie = {niveau_vie}"
                   f"\nNombre de victoires consecutives = {nombre_victoires_consecutives}")
-            jeu()
+
+            if nombre_victoires_consecutives >= 3:
+                print("\nBoss adversaire!")
+                intense()
+            else:
+                normale()
 
 
         else:
@@ -52,7 +57,7 @@ def action():
             print(f"Dernier combat = {combat_statut}")
             if niveau_vie > 0:
                 print(f"Niveau de vie = {niveau_vie}")
-                jeu()
+                normale()
             else:
                 print(f"La partie est terminée, vous avez vaincu {nombre_victoires} monstre(s).")
 
@@ -61,7 +66,11 @@ def action():
         niveau_vie = niveau_vie - 1
         print("Vous contournez l'adversaire au cout de 1 pt de vie"
               f"\nNiveau de vie = {niveau_vie}")
-        jeu()
+        if nombre_victoires_consecutives >= 3:
+            print("\nBoss adversaire!")
+            intense()
+        else:
+            normale()
 
     elif quoi_faire == 3:  # afficher les regles
         print("\nPour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire."
@@ -78,12 +87,17 @@ def action():
         print("Merci et au revoir...")
 
 
-def jeu():
+def normale():
     global force_adversaire
     force_adversaire = random.randint(1,5)
 
     action()
 
-jeu()
+def intense():
+    global force_adversaire
+    force_adversaire = 5
 
+    action()
+
+normale()
 
