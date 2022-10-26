@@ -26,14 +26,18 @@ def action():
     if quoi_faire == 1:  # combat
         numero_adversaire = numero_adversaire + 1
         print("option 1"
-              f"\n Adversaire : {numero_adversaire}"
+              f"Adversaire : {numero_adversaire}"
               f"\n Force de l'adversaire : {force_adversaire}"
               f"\n Ton niveau de vie: {niveau_vie}"
               f"\n combat {numero_adversaire}: {nombre_victoires} victoires et {nombre_defaites} defaites \n... ")
         time.sleep(2)
-        score_de = random.randint(1,6)
-        print(f"Lancer du dé: {score_de}")
-        if score_de > force_adversaire:
+        score_de_1 = random.randint(1,6)
+        score_de_2 = random.randint(1,6)
+        score_de_totale = score_de_1 + score_de_2
+        print(f"\nLancer du dé 1: {score_de_1}"
+              f"\nLancer du dé 2: {score_de_2}"
+              f"\nTotale: {score_de_totale}")
+        if score_de_totale > force_adversaire:
             combat_statut = "victoire!"
             nombre_victoires_consecutives = nombre_victoires_consecutives + 1
             nombre_victoires = nombre_victoires + 1
@@ -73,9 +77,9 @@ def action():
             normale()
 
     elif quoi_faire == 3:  # afficher les regles
-        print("\nPour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire."
+        print("\nPour réussir un combat, il faut que la valeur des 2 dés lancés soit supérieure à la force de l’adversaire."
               "\nDans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire."
-              "\nUne défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de"
+              "\nUne défaite a lieu lorsque la valeur des 2 dés lancés par l’usager est inférieure ou égale à la force de"
               " l’adversaire. "
               "\nDans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire."
               "\nLa partie se termine lorsque les points de vie de l’usager tombent sous 0."
@@ -89,13 +93,13 @@ def action():
 
 def normale():
     global force_adversaire
-    force_adversaire = random.randint(1,5)
+    force_adversaire = random.randint(2,9)
 
     action()
 
 def intense():
     global force_adversaire
-    force_adversaire = 5
+    force_adversaire = random.randint(10,11)
 
     action()
 
