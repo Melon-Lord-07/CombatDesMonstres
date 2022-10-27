@@ -4,17 +4,25 @@ TP3 - combat des monstres
 Ceci est un jeu où le joueur roule 2 dés pour combattre des montres dans une labyrinthe
 """
 import random
-import time
 
-niveau_vie = 20
-numero_adversaire = 0
-nombre_victoires = 0
-nombre_defaites = 0
-nombre_victoires_consecutives = 0
+def debut():
+    """
+    definit les valeurs du debut du jeu (0 combats, niveau de vie de 20)
+    """
+    global niveau_vie, numero_adversaire, nombre_victoires, nombre_defaites, nombre_victoires_consecutives
+    niveau_vie = 20
+    numero_adversaire = 0
+    nombre_victoires = 0
+    nombre_defaites = 0
+    nombre_victoires_consecutives = 0
 
 
 def action():
-    print(f"vous tombez sur un adversaire de force {force_adversaire}")
+    """
+    code qui definit les quatre actions que le joueur peut faire: combattre, contourner, afficher les règles, ou quitter
+    """
+    print(f"Niveau de vie: {niveau_vie}"
+          f"Vous tombez sur un adversaire de force {force_adversaire}")
 
     global quoi_faire, numero_adversaire, nombre_victoires, nombre_defaites, nombre_victoires_consecutives, niveau_vie
 
@@ -27,23 +35,24 @@ def action():
               f"\n Force de l'adversaire : {force_adversaire}"
               f"\n Ton niveau de vie: {niveau_vie}"
               f"\n combat {numero_adversaire}: {nombre_victoires} victoires et {nombre_defaites} defaites \n... ")
-        time.sleep(2)
         score_de_1 = random.randint(1, 6)
         score_de_2 = random.randint(1, 6)
         score_de_totale = score_de_1 + score_de_2
         print(f"\nLancer du dé 1: {score_de_1}"
               f"\nLancer du dé 2: {score_de_2}"
               f"\nTotale: {score_de_totale}")
+
         if score_de_totale > force_adversaire:
             combat_statut = "victoire!"
             nombre_victoires_consecutives += 1
             nombre_victoires += 1
+            niveau_vie += force_adversaire
 
             print(f"Dernier combat = {combat_statut}"
                   f"\nNiveau de vie = {niveau_vie}"
                   f"\nNombre de victoires consecutives = {nombre_victoires_consecutives}")
 
-            if nombre_victoires_consecutives >= 3:
+            if nombre_victoires % 3 == 0 and nombre_victoires != 0:
                 print("\nBoss adversaire!")
                 intense()
             else:
@@ -55,16 +64,21 @@ def action():
             nombre_victoires_consecutives = 0
             nombre_defaites += 1
             print(f"Dernier combat = {combat_statut}")
+
             if niveau_vie > 0:
                 print(f"Niveau de vie = {niveau_vie}")
                 normale()
             else:
-                print(f"La partie est terminée, vous avez vaincu {nombre_victoires} monstre(s).")
+                print(f"La partie est terminée, vous avez vaincu {nombre_victoires} monstre(s)."
+                      "\nNouveau jeu!")
+                debut()
+                normale()
 
     elif quoi_faire == 2:
         niveau_vie -= 1
         print("Vous contournez l'adversaire au cout de 1 pt de vie"
               f"\nNiveau de vie = {niveau_vie}")
+
         if nombre_victoires_consecutives >= 3:
             print("\nBoss adversaire!")
             intense()
@@ -93,7 +107,7 @@ def normale():
     génère la force de l'adversaire normale
     """
     global force_adversaire
-    force_adversaire = random.randint(2, 9)
+    force_adversaire = random.randint(1, 5) + random.randint(1, 5)
     action()
 
 
@@ -106,4 +120,5 @@ def intense():
     action()
 
 
+debut()
 normale()
